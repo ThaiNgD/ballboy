@@ -1,5 +1,5 @@
-import { Controller, Get, Param, Render } from '@nestjs/common';
-import { map, toArray } from 'rxjs';
+import { Controller, Get, Param, ParseIntPipe, Render } from '@nestjs/common';
+import { toArray } from 'rxjs';
 import { AppService } from './app.service';
 
 @Controller()
@@ -8,10 +8,8 @@ export class AppController {
   @Get('/')
   @Render('index')
   home() {
-    return this.appService.getBlogPosts().pipe(
-      toArray(),
-      map((blogPosts) => ({ blogPosts })),
-    );
+    console.log(this.appService.getBlogPosts());
+    return this.appService.getBlogPosts().pipe(toArray());
   }
   getHello(): string {
     return this.appService.getHello();
@@ -20,6 +18,16 @@ export class AppController {
   @Get(':id')
   @Render('[id]')
   public blogPost(@Param('id') id: string) {
-    return {};
+    return { id };
+  }
+
+  @Get('/api/blog-posts')
+  public listBlogPosts() {
+    return this.appService.getBlogPosts();
+  }
+
+  @Get('/api/blog-posts/:id')
+  public getBlogPostById(@Param('id', new ParseIntPipe()) id: number) {
+    return this.appService.getBlogPostByID(id);
   }
 }

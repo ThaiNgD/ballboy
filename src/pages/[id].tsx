@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { FC } from 'react';
 import { BlogPost } from 'src/shared/types/blog-post';
+import { envAwareFetch } from 'src/shared/utils/envAwareFetch';
 
 type TBlogProps = {
   post: BlogPost;
@@ -19,7 +20,10 @@ const Blog: FC<TBlogProps> = ({ post = {} }) => {
 export const getServerSideProps: GetServerSideProps<TBlogProps> = async (
   ctx,
 ) => {
-  return { props: {} as TBlogProps };
+  const id = ctx.query.id;
+  const post = await envAwareFetch<BlogPost>(`/api/blog-posts/${id}`);
+
+  return { props: { post } };
 };
 
 export default Blog;

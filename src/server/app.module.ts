@@ -5,7 +5,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-const nextApp = Next({ dev: isDevelopment });
+const nextApp = Next({
+  dev: isDevelopment,
+  // conf: { useFilesystemPublicRoutes: false },
+});
 @Module({
   imports: [
     RenderModule.forRootAsync(nextApp, {
