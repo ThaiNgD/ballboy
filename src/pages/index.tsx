@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { BlogPost } from 'src/shared/types/blog-post';
 import { envAwareFetch } from 'src/shared/utils/envAwareFetch';
-
 type THomeProps = {
   blogPosts: BlogPost[];
 };
@@ -12,7 +11,7 @@ const Home: FC<THomeProps> = ({ blogPosts }) => {
   console.log(blogPosts);
   return (
     <div>
-      <h1>Home</h1>
+      <h1 className="text-xl text-red-500 font-semibold">Home</h1>
       {blogPosts.map(({ title, id }) => (
         <div key={id}>
           <Link href={`/${id}`}>{title}</Link>
