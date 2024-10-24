@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { PORT } from 'src/shared/constants/env';
+import { PORT } from '../shared/constants/env';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
